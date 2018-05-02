@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	  <meta charset="utf-8">
+	  <title>EngforBeg</title>
+	  <meta http-equiv="X-UA-Compatibile" content="IE=edge,chrome=1"/>
+	  <meta name="viewport" content="width=device-width" content="initial-scale=1">
+	  <link rel="stylesheet" href="style.css" type="text/css"/>
+	  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+	 <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    
+</head>
+<body>
+	<header id="header">
+		<select id="select_group">
+			<option>turystyka</option>
+			<option>rodzina</option>
+		</select>
+		<img  class="main_img" src="images/eng.png">
+	</header>
+	<section id="main_area">
+			<p id="show_massage"></p>
+			<input id="text_answer_area" type="tekst" autofocus>
+			<aside>
+			<ul id="answer_list">
+				
+			</ul>
+			</aside>
+			<aside>
+			<button id="listen_btn">Słuchaj</button>
+			<button id="next_btn">Dalej</button>
+			</aside>
+			<aside id="correct_answers"><p>Poprawnie:</p></aside>
+			<audio id="listen_audio" autoplay>
+				<source id="sound_path" src="" type="audio/ogg">
+			</audio>
+		</section>
+	<script type="text/javascript">
+		 let words= [
+			  {
+		 	name: 'sightseeing',
+		 	translate: 'zwiedzanie',
+		 	choiceE:["sightseeing","sailing","significant","saying"],
+		 	choiceP: ["zwiedzanie","spanie", "podróż", "piłka"],
+			 },
+			   {
+		 	name: 'sunset',
+		 	translate: 'zachod slonca',
+		 	choiceE:["sunset","submit","sunrise","sandwich"],
+		 	choiceP: ["zachod slonca","niedziela", "ogród", "spacer"]
+			 },
+			   {
+		 	name: 'room key',
+		 	translate: 'klucz do pokoju',
+		 	choiceE:["room key","roommate","rough","request"],
+		 	choiceP: ["klucz do pokoju","zwiedzanie", "wycieczka", "hostel"]
+			 },
+			 {
+		 	name: 'luggage',
+		 	translate: 'bagaż',
+		 	choiceE:["luggage","lucky","lagged","legend"],
+		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
+			 },
+		 	{
+		 	name: 'hospital',
+		 	translate: 'szpital',
+		 	choiceE:["hospital","horse","host","hostage"],
+		 	choiceP: ["szpital","lekarstwo", "szkoła", "opieka"]
+			 },
+			 {
+		 	name: 'tiger',
+		 	translate: 'tygrys',
+		 	choiceE:["tiger","tight","tightly","title"],
+		 	choiceP: ["tygrys","lew", "pies", "kot"]
+			 },
+		 ];
+
+		 
+		 let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
+		 let i = 0; //zmienna do przebiegu gry
+		 let poprawki = [];
+		 let k = 0;
+		 
+		 function stopClick(){
+		 	let blockClick = document.getElementsByTagName("li");
+			for (let y = 0; y < blockClick.length; y++) {
+ 			 blockClick[y].onclick=function(){return false;};
+			};	
+		 };
+		 function mixArray(array) {
+for (let i = 0; i < array.length; i++) { //wykonujemy p�tl� po ca�ej tablicy
+let j = Math.floor(Math.random() * array.length); //losujemy warto�� z przedzia�u 0 - tablica.length-1
+let tempTab = array[i]; //pod zmienn� tempTab podstawiamy warto�� bie��cego indexu
+array[i] = array[j]; //pod bie��cy index podstawiamy warto�� z indexu wylosowanego
+array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego indexu
+}
+} 
+
+	 function listenTest(a){
+	 			document.getElementById('text_answer_area').style.visibility = "hidden";
+	 			document.getElementById('show_massage').innerHTML = "co uslyszales?";
+	 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";
+	 			let sounds = 'sounds/' + a[i].name +'.ogg';
+				document.getElementById("listen_audio").src = sounds;
+				a = JSON.parse(JSON.stringify( a));
+				 let choiceAnswerTable = [a[i].choiceE[0],a[i].choiceE[1],a[i].choiceE[2],a[i].choiceE[3],];
+				 let correctAnswerIndex = choiceAnswerTable[0];
+				 mixArray(choiceAnswerTable);
+				 let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
+				 	
+				 for(let in choiceAnswerTable ){
+				 		list = document.getElementById('answer_list') ;
+				 		listitem = document.createElement('li');
+				 		listitem.innerHTML = choiceAnswerTable [let];
+				 		list.appendChild(listitem);
+
+				 		listitem.onclick = function(){
+					 		let clickedWord = this.textContent;
+						 		if (clickedWord==a[i].name) {
+						 			this.style.backgroundColor = "green";
+						 			document.getElementById('show_massage').innerHTML = a[i].translate;
+						 			correct_answers++;
+						 			k++;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						 			a.splice(i,1);
+						 			if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise I complited</p>"; document.getElementById('next_btn').onclick = function(){
+						 				document.getElementById('answer_list').innerHTML = ""; selectPolishTrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";return false }};
+						 		}
+						 		else {
+						 			this.style.backgroundColor = "red";
+						 			document.getElementById('show_massage').innerHTML = a[i].translate;
+						 			let c =document.getElementById('answer_list').children;
+						 			c[correctAnswerIndex2].style.backgroundColor = "green";
+						 			i++;
+						 			k++;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						 		}
+						 		stopClick();
+				 		}; // listitem onclick
+				 }; //koniec wyswietlania odp for petla 
+
+				 document.getElementById('next_btn').onclick = function(){
+				 	list.innerHTML = "";
+				 	document.getElementById('show_massage').innerHTML = "";
+				 	z=a.length;
+					 if(i==z){i=0;}
+					 listenTest(a);	
+				}
+				document.getElementById('listen_btn').onclick = function(){
+					document.getElementById("listen_audio").play();
+				};
+	 }	//koniec listenTest
+
+	function selectPolishTrans(a){
+		document.getElementById('show_massage').innerHTML = a[i].name;
+		let sounds = 'sounds/' + a[i].name +'.ogg';
+		document.getElementById("listen_audio").src = sounds;
+		a = JSON.parse(JSON.stringify( a));
+		let choiceAnswerTable = [a[i].choiceP[0],a[i].choiceP[1],a[i].choiceP[2],a[i].choiceP[3],];
+		 let correctAnswerIndex = choiceAnswerTable[0];
+			mixArray(choiceAnswerTable);
+			let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
+
+		 for(let in choiceAnswerTable ){
+			list = document.getElementById('answer_list') ;
+			listitem = document.createElement('li');
+			listitem.innerHTML = choiceAnswerTable [let];
+			list.appendChild(listitem);
+
+			listitem.onclick = function(){
+				let clickedWord = this.textContent;
+				if (clickedWord==a[i].translate) {
+					this.style.backgroundColor = "green";
+					correct_answers++;
+					k++
+					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";
+					a.splice(i,1);
+					if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise II complited</p>"; document.getElementById('next_btn').onclick = function(){
+						 	document.getElementById('answer_list').innerHTML = ""; selecttrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false }};
+						 }
+					 else {
+						this.style.backgroundColor = "red";
+						let c =document.getElementById('answer_list').children;
+						 			c[correctAnswerIndex2].style.backgroundColor = "green";
+						i++;
+						k++;
+						document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						}
+					stopClick();
+					};
+	};
+			document.getElementById('next_btn').onclick = function(){
+			list.innerHTML = "";
+			document.getElementById('show_massage').innerHTML = "";
+			z=a.length;
+			if(i==z){i=0;}
+			selectPolishTrans(a);	
+			}
+			document.getElementById('listen_btn').onclick = function(){
+			document.getElementById("listen_audio").play();
+			};
+
+};//selctpolishtrans
+
+function selecttrans(a){
+	document.getElementById('listen_btn').style.visibility = "hidden";
+	document.getElementById('show_massage').innerHTML = a[i].translate;
+	a = JSON.parse(JSON.stringify(a));
+	let choiceAnswerTable = [a[i].choiceE[0],a[i].choiceE[1],a[i].choiceE[2],a[i].choiceE[3],];
+	let correctAnswerIndex = choiceAnswerTable[0];
+				 mixArray(choiceAnswerTable);
+				 let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
+	 for(let in choiceAnswerTable ){
+				 		list = document.getElementById('answer_list') ;
+				 		listitem = document.createElement('li');
+				 		listitem.innerHTML = choiceAnswerTable [let];
+				 		list.appendChild(listitem);
+
+	listitem.onclick = function(){
+		let clickedWord = this.textContent;
+		if (clickedWord==a[i].name) {
+		this.style.backgroundColor = "green";
+		correct_answers++;
+		k++;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		let sounds = 'sounds/' + a[i].name +'.ogg';
+		document.getElementById("listen_audio").src = sounds;
+		document.getElementById("listen_audio").play();
+		document.getElementById('listen_btn').onclick = function(){
+					document.getElementById("listen_audio").play();
+				};
+		a.splice(i,1);
+		if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise III complited</p>"; document.getElementById('next_btn').onclick = function(){
+		document.getElementById('answer_list').innerHTML = ""; dictation(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false }};
+		}
+		else {
+				this.style.backgroundColor = "red";
+				let c =document.getElementById('answer_list').children;
+						 			c[correctAnswerIndex2].style.backgroundColor = "green";
+					i++;
+					k++;
+					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+			}
+			stopClick();	
+		};						
+
+	};// forlet			 	
+		document.getElementById('next_btn').onclick = function(){
+			list.innerHTML = "";
+			document.getElementById('show_massage').innerHTML = "";
+			z=a.length;
+			 if(i==z){i=0;}
+			selecttrans(a);	
+			};
+};//zselecttrans
+function dictation(a){
+document.getElementById('listen_btn').style.visibility = "initial";
+document.getElementById('text_answer_area').style.visibility = "initial";	
+a = JSON.parse(JSON.stringify( a));
+document.getElementById('show_massage').innerHTML = "Wpisz usłyszane słowo";
+document.getElementById('answer_list').innerHTML = "";
+let sounds = 'sounds/' + a[i].name +'.ogg';
+document.getElementById("listen_audio").src = sounds;
+document.getElementById("listen_audio").play();
+document.getElementById('next_btn').onclick = function(){
+	let getvalue = document.getElementById('text_answer_area').value;
+	
+	if(getvalue == a[i].name){
+		document.getElementById('show_massage').innerHTML = "<p class='correct_answer'>Bardzo dobrze <br></p>"+ a[i].name;
+		document.getElementById('text_answer_area').style.visibility = "hidden";
+		document.getElementById('text_answer_area').value = "";
+		a.splice(i,1);
+		k++;
+		correct_answers++;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		
+		}
+	else{
+		document.getElementById('show_massage').innerHTML = "<p class='wrong_answer'>Błędnie<br></p>"+ a[i].name;
+		document.getElementById('text_answer_area').style.visibility = "hidden";
+		document.getElementById('text_answer_area').value = "";
+		k++;
+		i++;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+	}
+	if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise IV complited</p>"; finaltest(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false;};
+			z=a.length;
+			 if(i==z){i=0;};
+		document.getElementById('next_btn').onclick = function(){
+		dictation(a);
+		document.getElementById('text_answer_area').style.visibility = "initial";
+}
+}
+};//dictation
+function finalTest(a){
+document.getElementById('text_answer_area').style.visibility = "initial";	
+a = JSON.parse(JSON.stringify(a));
+document.getElementById('show_massage').innerHTML = a[i].translate;
+
+document.getElementById('next_btn').onclick = function(){
+	let getvalue = document.getElementById('text_answer_area').value;
+	if(getvalue == a[i].name){
+		document.getElementById('show_massage').innerHTML = "<p class='correct_answer'>Bardzo dobrze <br></p>"+ a[i].name;
+		document.getElementById('text_answer_area').style.visibility = "hidden";
+		document.getElementById('text_answer_area').value = "";
+		a.splice(i,1);
+		k++;
+		correct_answers++;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		
+		}
+	else{
+		document.getElementById('show_massage').innerHTML = "<p class='wrong_answer'>Błędnie<br></p>"+ a[i].name;
+		document.getElementById('text_answer_area').style.visibility = "hidden";
+		document.getElementById('text_answer_area').value = "";
+		k++;
+		i++;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+	}
+	if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise IV complited</p>"; alert("dups"); return false;};
+			z=a.length;
+			 if(i==z){i=0;};
+		document.getElementById('next_btn').onclick = function(){
+		finalTest(a);
+		document.getElementById('text_answer_area').style.visibility = "initial";
+
+}
+}
+}//finaltest
+var e = document.getElementById("select_group");
+var optionValue = e.options[e.selectedIndex].value;
+
+
+
+listenTest(words);
+	</script>
+}
+</body>
+</html>
