@@ -132,7 +132,7 @@ text-align: center;
 	margin-right: auto;
 }
 #answer_list li:hover{
-	background-color: lightgray;
+	background-color: 
 }
 #correct_answers{
 	position: absolute;
@@ -180,5 +180,10 @@ text-align: center;
 .correct_answer{
 	color:green !important;
 }
-
+.good_result{
+	color: green !important;
+}
+.bad_result{
+	color: red !important;
+	}
 

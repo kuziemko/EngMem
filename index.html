@@ -55,13 +55,13 @@
 		 	choiceE:["sunset","submit","sunrise","sandwich"],
 		 	choiceP: ["zachod slonca","niedziela", "ogród", "spacer"]
 			 },
-			   {
+			 {
 		 	name: 'room key',
 		 	translate: 'klucz do pokoju',
 		 	choiceE:["room key","roommate","rough","request"],
 		 	choiceP: ["klucz do pokoju","zwiedzanie", "wycieczka", "hostel"]
 			 },
-			 {
+			/* {
 		 	name: 'luggage',
 		 	translate: 'bagaż',
 		 	choiceE:["luggage","lucky","lagged","legend"],
@@ -78,7 +78,7 @@
 		 	translate: 'tygrys',
 		 	choiceE:["tiger","tight","tightly","title"],
 		 	choiceP: ["tygrys","lew", "pies", "kot"]
-			 },
+			 },*/
 		 ];
 
 		 
@@ -86,7 +86,12 @@
 		 let i = 0; //zmienna do przebiegu gry
 		 let poprawki = [];
 		 let k = 0;
-		 
+		 let avaregeTest1 = 0;
+		let avaregeTest2 = 0;
+		 let avaregeTest3 = 0;
+		let avaregeTest4 = 0;
+
+
 		 function stopClick(){
 		 	let blockClick = document.getElementsByTagName("li");
 			for (let y = 0; y < blockClick.length; y++) {
@@ -105,7 +110,7 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 	 function listenTest(a){
 	 			document.getElementById('text_answer_area').style.visibility = "hidden";
 	 			document.getElementById('show_massage').innerHTML = "co uslyszales?";
-	 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";
+	 			
 	 			let sounds = 'sounds/' + a[i].name +'.ogg';
 				document.getElementById("listen_audio").src = sounds;
 				a = JSON.parse(JSON.stringify( a));
@@ -127,10 +132,11 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 						 			document.getElementById('show_massage').innerHTML = a[i].translate;
 						 			correct_answers++;
 						 			k++;
-						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						 			let percent = Math.floor(correct_answers/k*100) ;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 						 			a.splice(i,1);
-						 			if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise I complited</p>"; document.getElementById('next_btn').onclick = function(){
-						 				document.getElementById('answer_list').innerHTML = ""; selectPolishTrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";return false }};
+						 			if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise I complited</p>"; avaregeTest1 = percent; document.getElementById('next_btn').onclick = function(){
+						 				document.getElementById('answer_list').innerHTML = ""; selectPolishTrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie %</p>";return false }};
 						 		}
 						 		else {
 						 			this.style.backgroundColor = "red";
@@ -139,7 +145,8 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 						 			c[correctAnswerIndex2].style.backgroundColor = "green";
 						 			i++;
 						 			k++;
-						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						 			let percent = Math.floor(correct_answers/k*100) ;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 						 		}
 						 		stopClick();
 				 		}; // listitem onclick
@@ -179,10 +186,11 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 					this.style.backgroundColor = "green";
 					correct_answers++;
 					k++
-					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>";
+					let percent = Math.floor(correct_answers/k*100) ;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 					a.splice(i,1);
-					if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise II complited</p>"; document.getElementById('next_btn').onclick = function(){
-						 	document.getElementById('answer_list').innerHTML = ""; selecttrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false }};
+					if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise II complited</p>"; avaregeTest2 = percent; document.getElementById('next_btn').onclick = function(){
+						 	document.getElementById('answer_list').innerHTML = ""; selecttrans(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie %</p>"; return false }};
 						 }
 					 else {
 						this.style.backgroundColor = "red";
@@ -190,7 +198,8 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 						 			c[correctAnswerIndex2].style.backgroundColor = "green";
 						i++;
 						k++;
-						document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+						let percent = Math.floor(correct_answers/k*100) ;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 						}
 					stopClick();
 					};
@@ -228,7 +237,8 @@ function selecttrans(a){
 		this.style.backgroundColor = "green";
 		correct_answers++;
 		k++;
-		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		let percent = Math.floor(correct_answers/k*100) ;
+						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 		let sounds = 'sounds/' + a[i].name +'.ogg';
 		document.getElementById("listen_audio").src = sounds;
 		document.getElementById("listen_audio").play();
@@ -237,15 +247,16 @@ function selecttrans(a){
 				};
 		a.splice(i,1);
 		if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise III complited</p>"; document.getElementById('next_btn').onclick = function(){
-		document.getElementById('answer_list').innerHTML = ""; dictation(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false }};
+		document.getElementById('answer_list').innerHTML = ""; avaregeTest3 = percent; dictation(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false }};
 		}
 		else {
 				this.style.backgroundColor = "red";
 				let c =document.getElementById('answer_list').children;
-						 			c[correctAnswerIndex2].style.backgroundColor = "green";
+				c[correctAnswerIndex2].style.backgroundColor = "green";
 					i++;
 					k++;
-					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+					let percent = Math.floor(correct_answers/k*100) ;
+					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 			}
 			stopClick();	
 		};						
@@ -259,6 +270,7 @@ function selecttrans(a){
 			selecttrans(a);	
 			};
 };//zselecttrans
+
 function dictation(a){
 document.getElementById('listen_btn').style.visibility = "initial";
 document.getElementById('text_answer_area').style.visibility = "initial";	
@@ -278,8 +290,9 @@ document.getElementById('next_btn').onclick = function(){
 		a.splice(i,1);
 		k++;
 		correct_answers++;
-		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
-		
+		let percent = Math.floor(correct_answers/k*100) ;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
+		if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise III complited</p>";  avaregeTest4 = percent; return document.getElementById('next_btn').onclick = function(){ document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = ""; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie %</p>"; finalTest(words);k=0; correct_answers=0; }; };
 		}
 	else{
 		document.getElementById('show_massage').innerHTML = "<p class='wrong_answer'>Błędnie<br></p>"+ a[i].name;
@@ -287,12 +300,14 @@ document.getElementById('next_btn').onclick = function(){
 		document.getElementById('text_answer_area').value = "";
 		k++;
 		i++;
-		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		let percent = Math.floor(correct_answers/k*100) ;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 	}
-	if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise IV complited</p>"; finaltest(words);k=0; correct_answers=0; document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; return false;};
-			z=a.length;
-			 if(i==z){i=0;};
+	
+			
 		document.getElementById('next_btn').onclick = function(){
+		z=a.length;
+		if(i==z){i=0;};
 		dictation(a);
 		document.getElementById('text_answer_area').style.visibility = "initial";
 }
@@ -309,21 +324,38 @@ document.getElementById('next_btn').onclick = function(){
 		document.getElementById('show_massage').innerHTML = "<p class='correct_answer'>Bardzo dobrze <br></p>"+ a[i].name;
 		document.getElementById('text_answer_area').style.visibility = "hidden";
 		document.getElementById('text_answer_area').value = "";
+		let sounds = 'sounds/' + a[i].name +'.ogg';
+document.getElementById("listen_audio").src = sounds;
+document.getElementById("listen_audio").play();
 		a.splice(i,1);
 		k++;
 		correct_answers++;
-		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		let percent = Math.floor(correct_answers/k*100) ;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent + "%</p>";
 		
 		}
 	else{
 		document.getElementById('show_massage').innerHTML = "<p class='wrong_answer'>Błędnie<br></p>"+ a[i].name;
 		document.getElementById('text_answer_area').style.visibility = "hidden";
 		document.getElementById('text_answer_area').value = "";
+		let sounds = 'sounds/' + a[i].name +'.ogg';
+document.getElementById("listen_audio").src = sounds;
+document.getElementById("listen_audio").play();
 		k++;
 		i++;
-		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100)  + "%</p>";
+		let percent = Math.floor(correct_answers/k*100) ;
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 	}
-	if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise IV complited</p>"; alert("dups"); return false;};
+	if(a.length ==0){document.getElementById('show_massage').innerHTML = ""; document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br><p> Exercise IV complited</p>"; 
+		let averageAll = Math.floor(avaregeTest1 + avaregeTest2 + avaregeTest3 + avaregeTest4) / 4;
+		 
+		 return document.getElementById('next_btn').onclick = function(){
+		 	if(averageAll>80){document.getElementById('correct_answers').innerHTML ="";
+		 		 document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br> <p class='good_result'>Twój wynik: "+ averageAll + "%</p>"
+		 		}else{
+		 			document.getElementById('correct_answers').innerHTML ="";
+		 			document.getElementById('answer_list').innerHTML ="<p class='bad_result'>Twój wynik: "+ averageAll + "%<br> Powtórz materiał!</p>"};
+		 } };//if a.length
 			z=a.length;
 			 if(i==z){i=0;};
 		document.getElementById('next_btn').onclick = function(){
