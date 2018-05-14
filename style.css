@@ -69,6 +69,7 @@ html{
 /*---[ Conteiner/Strona glowna ]----------------g p d l--------------------------------------*/
 body{
 	font-family: 'Roboto', sans-serif;
+	position: relative;
 }
 #header img{
  display: block;
@@ -186,4 +187,27 @@ text-align: center;
 .bad_result{
 	color: red !important;
 	}
+#img_good_result{
+	position: relative;
+	top: -90px;
+	left: -430px;
+	animation-duration: 4s;
+	animation-iteration-count: 1;
+	animation-fill-mode:forwards;
 
+}
+@keyframes rozwin
+{
+	0% {left:-390px;
+		top: -20px;
+		transform: rotateX(180deg);	
+	}
+	60%{
+		left: 0px;
+		top: -50px;
+	}
+	100%{
+		left: 0px;
+		top:-20px;
+	}
+};

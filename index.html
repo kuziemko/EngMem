@@ -43,11 +43,23 @@
 		</section>
 	<script type="text/javascript">
 		 let words= [
+		  {
+		 	name: 'luggage',
+		 	translate: 'bagaż',
+		 	choiceE:["luggage","lucky","lagged","legend"],
+		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
+			 },
+			 {
+		 	name: 'hospital',
+		 	translate: 'szpital',
+		 	choiceE:["hospital","horse","host","hostage"],
+		 	choiceP: ["szpital","lekarstwo", "szkoła", "opieka"]
+			 },
 			  {
-		 	name: 'sightseeing',
-		 	translate: 'zwiedzanie',
-		 	choiceE:["sightseeing","sailing","significant","saying"],
-		 	choiceP: ["zwiedzanie","spanie", "podróż", "piłka"],
+		 	name: 'tiger',
+		 	translate: 'tygrys',
+		 	choiceE:["tiger","tight","tightly","title"],
+		 	choiceP: ["tygrys","lew", "pies", "kot"]
 			 },
 			   {
 		 	name: 'sunset',
@@ -55,33 +67,22 @@
 		 	choiceE:["sunset","submit","sunrise","sandwich"],
 		 	choiceP: ["zachod slonca","niedziela", "ogród", "spacer"]
 			 },
+			/*
 			 {
 		 	name: 'room key',
 		 	translate: 'klucz do pokoju',
 		 	choiceE:["room key","roommate","rough","request"],
 		 	choiceP: ["klucz do pokoju","zwiedzanie", "wycieczka", "hostel"]
 			 },
-			/* {
-		 	name: 'luggage',
-		 	translate: 'bagaż',
-		 	choiceE:["luggage","lucky","lagged","legend"],
-		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
-			 },
-		 	{
-		 	name: 'hospital',
-		 	translate: 'szpital',
-		 	choiceE:["hospital","horse","host","hostage"],
-		 	choiceP: ["szpital","lekarstwo", "szkoła", "opieka"]
-			 },
-			 {
-		 	name: 'tiger',
-		 	translate: 'tygrys',
-		 	choiceE:["tiger","tight","tightly","title"],
-		 	choiceP: ["tygrys","lew", "pies", "kot"]
+			  {
+		 	name: 'sightseeing',
+		 	translate: 'zwiedzanie',
+		 	choiceE:["sightseeing","sailing","significant","saying"],
+		 	choiceP: ["zwiedzanie","spanie", "podróż", "piłka"],
 			 },*/
 		 ];
 
-		 
+	
 		 let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
 		 let i = 0; //zmienna do przebiegu gry
 		 let poprawki = [];
@@ -350,11 +351,17 @@ document.getElementById("listen_audio").play();
 		let averageAll = Math.floor(avaregeTest1 + avaregeTest2 + avaregeTest3 + avaregeTest4) / 4;
 		 
 		 return document.getElementById('next_btn').onclick = function(){
-		 	if(averageAll>80){document.getElementById('correct_answers').innerHTML ="";
-		 		 document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br> <p class='good_result'>Twój wynik: "+ averageAll + "%</p>"
+		 	if(averageAll>80){document.getElementById('correct_answers').innerHTML ="<img src='images/kciukup.png'>";
+		 		 document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br> <p class='good_result'>Twój wynik: "+ averageAll + "%</p>";
+		 		  document.getElementById('correct_answers').innerHTML= "<img id='img_good_result' src='images/kciukup.png'>"
+		 		 document.getElementById('img_good_result').style.animationName = 'rozwin';
+
 		 		}else{
 		 			document.getElementById('correct_answers').innerHTML ="";
-		 			document.getElementById('answer_list').innerHTML ="<p class='bad_result'>Twój wynik: "+ averageAll + "%<br> Powtórz materiał!</p>"};
+		 			document.getElementById('answer_list').innerHTML ="<p>Twój wynik: </p><p class='bad_result'>"+ averageAll + "%</p>" + "<p> Powtórz materiał!</p>";
+		 		document.getElementById('correct_answers').innerHTML= "<img id='img_good_result' src='images/try_again.jpg'>"
+		 		 document.getElementById('img_good_result').style.animationName = 'rozwin';
+		 		};
 		 } };//if a.length
 			z=a.length;
 			 if(i==z){i=0;};
