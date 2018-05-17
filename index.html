@@ -22,7 +22,7 @@
 			<option>turystyka</option>
 			<option>rodzina</option>
 		</select>
-		<img  class="main_img" src="images/eng.png">
+		<img  id="main_img" src="images/eng.jpg">
 	</header>
 	<section id="main_area">
 			<p id="show_massage"></p>
@@ -36,7 +36,7 @@
 			<button id="listen_btn">Słuchaj</button>
 			<button id="next_btn">Dalej</button>
 			</aside>
-			<aside id="correct_answers"><p>Poprawnie:</p></aside>
+			<aside id="correct_answers"><p>Poprawnie: 0%</p></aside>
 			<audio id="listen_audio" autoplay>
 				<source id="sound_path" src="" type="audio/ogg">
 			</audio>
@@ -91,9 +91,9 @@
 		let avaregeTest2 = 0;
 		 let avaregeTest3 = 0;
 		let avaregeTest4 = 0;
+		let imgIndex = 1;
 
-
-		 function stopClick(){
+	 function stopClick(){
 		 	let blockClick = document.getElementsByTagName("li");
 			for (let y = 0; y < blockClick.length; y++) {
  			 blockClick[y].onclick=function(){return false;};
@@ -372,12 +372,28 @@ document.getElementById("listen_audio").play();
 }
 }
 }//finaltest
+
+
 var e = document.getElementById("select_group");
 var optionValue = e.options[e.selectedIndex].value;
 
+function nextImg(){
+	imgIndex++;
+	document.getElementById('main_img').style.opacity = 0;
+	if(imgIndex ==6){imgIndex=1};	
+	setTimeout('imageSlider()', 1000);	
+};
 
-
+function imageSlider(){
+	let place = 'images/img' + imgIndex + '.jpg';
+	document.getElementById('main_img').src = place;
+	document.getElementById('main_img').style.opacity = 1;	
+	 setTimeout('nextImg()', 30000);	
+};
+	
 listenTest(words);
+ imageSlider();
+
 	</script>
 }
 </body>

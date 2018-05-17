@@ -75,9 +75,12 @@ body{
  display: block;
  margin: 0 auto;
 }
-.main_img{
-	height: 306px;;
-	width: 454px;
+#main_img{
+	height: 306px;
+	width: 454px;	
+	opacity: 0;
+	-webkit-transition:opacity 1.0s linear 0s ;
+	transition:opacity 1.0s linear 0s ;
 }
 #select_group{
 	margin-top: 20px;
@@ -210,4 +213,5 @@ text-align: center;
 		left: 0px;
 		top:-20px;
 	}
-};
+}
+
