@@ -26,14 +26,14 @@
 	</header>
 	<section id="main_area">
 			<p id="show_massage"></p>
-			<input id="text_answer_area" type="tekst" autofocus>
+			<input id="text_answer_area" type="tekst">
 			<aside>
 			<ul id="answer_list">
 				
 			</ul>
 			</aside>
 			<aside>
-			<button id="listen_btn">Słuchaj</button>
+			<button id="listen_btn"><img src="images/speaker.png"></button>
 			<button id="next_btn">Dalej</button>
 			</aside>
 			<aside id="correct_answers"><p>Poprawnie: 0%</p></aside>
@@ -48,7 +48,7 @@
 		 	translate: 'bagaż',
 		 	choiceE:["luggage","lucky","lagged","legend"],
 		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
-			 },
+			 },/*
 			 {
 		 	name: 'hospital',
 		 	translate: 'szpital',
@@ -67,7 +67,7 @@
 		 	choiceE:["sunset","submit","sunrise","sandwich"],
 		 	choiceP: ["zachod slonca","niedziela", "ogród", "spacer"]
 			 },
-			/*
+			
 			 {
 		 	name: 'room key',
 		 	translate: 'klucz do pokoju',
@@ -82,35 +82,35 @@
 			 },*/
 		 ];
 
-	
+		let answerArea = document.getElementById('text_answer_area');
 		 let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
 		 let i = 0; //zmienna do przebiegu gry
 		 let poprawki = [];
 		 let k = 0;
 		 let avaregeTest1 = 0;
-		let avaregeTest2 = 0;
+		 let avaregeTest2 = 0;
 		 let avaregeTest3 = 0;
-		let avaregeTest4 = 0;
-		let imgIndex = 1;
+		 let avaregeTest4 = 0;
+		 let imgIndex = 1;
 
-	 function stopClick(){
+	 	function stopClick(){
 		 	let blockClick = document.getElementsByTagName("li");
 			for (let y = 0; y < blockClick.length; y++) {
  			 blockClick[y].onclick=function(){return false;};
 			};	
 		 };
 		 function mixArray(array) {
-for (let i = 0; i < array.length; i++) { //wykonujemy p�tl� po ca�ej tablicy
-let j = Math.floor(Math.random() * array.length); //losujemy warto�� z przedzia�u 0 - tablica.length-1
-let tempTab = array[i]; //pod zmienn� tempTab podstawiamy warto�� bie��cego indexu
-array[i] = array[j]; //pod bie��cy index podstawiamy warto�� z indexu wylosowanego
-array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego indexu
-}
-} 
+			for (let i = 0; i < array.length; i++) { //wykonujemy p�tl� po ca�ej tablicy
+			let j = Math.floor(Math.random() * array.length); //losujemy warto�� z przedzia�u 0 - tablica.length-1
+			let tempTab = array[i]; //pod zmienn� tempTab podstawiamy warto�� bie��cego indexu
+			array[i] = array[j]; //pod bie��cy index podstawiamy warto�� z indexu wylosowanego
+			array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego indexu
+			}
+		} 
 
-	 function listenTest(a){
-	 			document.getElementById('text_answer_area').style.visibility = "hidden";
-	 			document.getElementById('show_massage').innerHTML = "co uslyszales?";
+	 	function listenTest(a){
+	 			answerArea.style.visibility = "hidden";
+	 			document.getElementById('show_massage').innerHTML = "Co usłyszaleś?";
 	 			
 	 			let sounds = 'sounds/' + a[i].name +'.ogg';
 				document.getElementById("listen_audio").src = sounds;
@@ -163,7 +163,7 @@ array[j] = tempTab; //pod wylsowany podstawiamy warto�� z bierz�cego index
 				document.getElementById('listen_btn').onclick = function(){
 					document.getElementById("listen_audio").play();
 				};
-	 }	//koniec listenTest
+	 	}	//koniec listenTest
 
 	function selectPolishTrans(a){
 		document.getElementById('show_massage').innerHTML = a[i].name;
@@ -239,7 +239,7 @@ function selecttrans(a){
 		correct_answers++;
 		k++;
 		let percent = Math.floor(correct_answers/k*100) ;
-						 			document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
+		document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 		let sounds = 'sounds/' + a[i].name +'.ogg';
 		document.getElementById("listen_audio").src = sounds;
 		document.getElementById("listen_audio").play();
@@ -273,17 +273,21 @@ function selecttrans(a){
 };//zselecttrans
 
 function dictation(a){
-document.getElementById('listen_btn').style.visibility = "initial";
-document.getElementById('text_answer_area').style.visibility = "initial";	
-a = JSON.parse(JSON.stringify( a));
-document.getElementById('show_massage').innerHTML = "Wpisz usłyszane słowo";
-document.getElementById('answer_list').innerHTML = "";
-let sounds = 'sounds/' + a[i].name +'.ogg';
-document.getElementById("listen_audio").src = sounds;
-document.getElementById("listen_audio").play();
-document.getElementById('next_btn').onclick = function(){
+	// ustawiam elementy
+	document.getElementById('listen_btn').style.visibility = "initial";
+	answerArea.style.visibility = "initial";	
+	document.querySelector('input').focus();	
+	a = JSON.parse(JSON.stringify( a));
+	document.getElementById('show_massage').innerHTML = "Wpisz usłyszane słowo";
+	document.getElementById('answer_list').innerHTML = "";
+	let sounds = 'sounds/' + a[i].name +'.ogg';
+	document.getElementById("listen_audio").src = sounds;
+	document.getElementById("listen_audio").play();
+	document.getElementById('next_btn').onclick = function(){
 	let getvalue = document.getElementById('text_answer_area').value;
 	
+
+	// tutaj co robie
 	if(getvalue == a[i].name){
 		document.getElementById('show_massage').innerHTML = "<p class='correct_answer'>Bardzo dobrze <br></p>"+ a[i].name;
 		document.getElementById('text_answer_area').style.visibility = "hidden";
@@ -315,6 +319,7 @@ document.getElementById('next_btn').onclick = function(){
 }
 };//dictation
 function finalTest(a){
+document.querySelector('input').focus();
 document.getElementById('text_answer_area').style.visibility = "initial";	
 a = JSON.parse(JSON.stringify(a));
 document.getElementById('show_massage').innerHTML = a[i].translate;
@@ -380,7 +385,7 @@ var optionValue = e.options[e.selectedIndex].value;
 function nextImg(){
 	imgIndex++;
 	document.getElementById('main_img').style.opacity = 0;
-	if(imgIndex ==6){imgIndex=1};	
+	if(imgIndex == 6){imgIndex=1};	
 	setTimeout('imageSlider()', 1000);	
 };
 
@@ -388,7 +393,7 @@ function imageSlider(){
 	let place = 'images/img' + imgIndex + '.jpg';
 	document.getElementById('main_img').src = place;
 	document.getElementById('main_img').style.opacity = 1;	
-	 setTimeout('nextImg()', 30000);	
+	 setTimeout('nextImg()', 15000);	
 };
 	
 listenTest(words);
