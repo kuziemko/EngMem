@@ -139,11 +139,14 @@ text-align: center;
 	border: none;
 	border-radius: 5px;
 	padding: 10px;
-	border:1px solid green;
+	border:1px solid black;
 }
-#next_btn:hover{
-	background:lightgreen;
-	
+#next_btn img{
+	width: 30px;
+
+}
+#next_btn:hover {
+
 }
 #answer_list li{
 	max-width: 400px;

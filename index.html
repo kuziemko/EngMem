@@ -31,7 +31,7 @@
 			</aside>
 			<aside>
 			<button id="listen_btn"><img src="images/speaker.png"></button>
-			<button id="next_btn">Dalej</button>
+			<button id="next_btn">Dalej <img src="images/arrow.png"></button>
 			</aside>
 			<aside id="correct_answers"><p>Poprawnie: 0%</p></aside>
 			<audio id="listen_audio" autoplay>
@@ -45,7 +45,7 @@
 		 	translate: 'bagaż',
 		 	choiceE:["luggage","lucky","lagged","legend"],
 		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
-			 },/*
+			 },
 			 {
 		 	name: 'hospital',
 		 	translate: 'szpital',
@@ -57,7 +57,7 @@
 		 	translate: 'tygrys',
 		 	choiceE:["tiger","tight","tightly","title"],
 		 	choiceP: ["tygrys","lew", "pies", "kot"]
-			 },
+			 },/*
 			   {
 		 	name: 'sunset',
 		 	translate: 'zachod slonca',
@@ -78,7 +78,7 @@
 		 	choiceP: ["zwiedzanie","spanie", "podróż", "piłka"],
 			 },*/
 		 ];
-
+		let listenAudio = document.getElementById("listen_audio");
 		let answerArea = document.getElementById('text_answer_area');
 		let showMassage = document.getElementById('show_massage');
 		let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
@@ -111,11 +111,18 @@
 		 };
 		}; 
 
+		answerArea.addEventListener("keyup", function(event) {
+			event.preventDefault();
+			if (event.keyCode === 13) {
+			 	document.getElementById('next_btn').click();
+			 }
+		});
+
 	 	function listenTest(a){
 	 		answerArea.style.visibility = "hidden";
 	 		showMassage.innerHTML = "Co usłyszaleś?";
 	 		let sounds = 'sounds/' + a[i].name +'.ogg';
-			document.getElementById("listen_audio").src = sounds;
+			listenAudio.src = sounds;
 			a = JSON.parse(JSON.stringify( a));
 			let choiceAnswerTable = [a[i].choiceE[0],a[i].choiceE[1],a[i].choiceE[2],a[i].choiceE[3],];
 			let correctAnswerIndex = choiceAnswerTable[0];
@@ -172,14 +179,14 @@
 				listenTest(a);	
 			}
 			document.getElementById('listen_btn').onclick = function(){
-				document.getElementById("listen_audio").play();
+				listenAudio.play();
 			};
 	 	}	//koniec listenTest
 
 		function selectPolishTrans(a){
 			showMassage.innerHTML = a[i].name;
 			let sounds = 'sounds/' + a[i].name +'.ogg';
-			document.getElementById("listen_audio").src = sounds;
+			listenAudio.src = sounds;
 			a = JSON.parse(JSON.stringify( a));
 			let choiceAnswerTable = [a[i].choiceP[0],a[i].choiceP[1],a[i].choiceP[2],a[i].choiceP[3],];
 			let correctAnswerIndex = choiceAnswerTable[0];
@@ -234,7 +241,7 @@
 				selectPolishTrans(a);	
 			};
 			document.getElementById('listen_btn').onclick = function(){
-				document.getElementById("listen_audio").play();
+				listenAudio.play();
 			};
 		};//selctpolishtrans
 
@@ -262,10 +269,10 @@
 						let percent = Math.floor(correct_answers/k*100) ;
 						document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 						let sounds = 'sounds/' + a[i].name +'.ogg';
-						document.getElementById("listen_audio").src = sounds;
-						document.getElementById("listen_audio").play();
+						listenAudio.src = sounds;
+						listenAudio.play();
 						document.getElementById('listen_btn').onclick = function(){
-							document.getElementById("listen_audio").play();
+							listenAudio.play();
 						};
 						a.splice(i,1);
 						if(a.length ==0){
@@ -304,14 +311,14 @@
 
 		function dictation(a){
 			document.getElementById('listen_btn').style.visibility = "initial";
-			answerArea.style.visibility = "initial";	
+			answerArea.style.visibility = "initial";
 			document.querySelector('input').focus();	
 			a = JSON.parse(JSON.stringify( a));
 			showMassage.innerHTML = "Wpisz usłyszane słowo";
 			document.getElementById('answer_list').innerHTML = "";
 			let sounds = 'sounds/' + a[i].name +'.ogg';
-			document.getElementById("listen_audio").src = sounds;
-			document.getElementById("listen_audio").play();
+			listenAudio.src = sounds;
+			listenAudio.play();
 			document.getElementById('next_btn').onclick = function(){
 				let getvalue = answerArea.value;
 			
@@ -358,6 +365,7 @@
 
 		function finalTest(a){
 			answerArea.style.visibility = "initial";	
+			document.querySelector('input').focus();	
 			a = JSON.parse(JSON.stringify(a));
 			showMassage.innerHTML = a[i].translate;
 
@@ -368,8 +376,8 @@
 					answerArea.style.visibility = "hidden";
 					answerArea.value = "";
 					let sounds = 'sounds/' + a[i].name +'.ogg';
-					document.getElementById("listen_audio").src = sounds;
-					document.getElementById("listen_audio").play();
+					listenAudio.src = sounds;
+					listenAudio.play();
 					a.splice(i,1);
 					k++;
 					correct_answers++;
@@ -381,8 +389,8 @@
 					answerArea.style.visibility = "hidden";
 					answerArea.value = "";
 					let sounds = 'sounds/' + a[i].name +'.ogg';
-					document.getElementById("listen_audio").src = sounds;
-					document.getElementById("listen_audio").play();
+					listenAudio.src = sounds;
+					listenAudio.play();
 					k++;
 					i++;
 					let percent = Math.floor(correct_answers/k*100) ;
