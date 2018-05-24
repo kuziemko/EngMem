@@ -45,7 +45,7 @@
 		 	translate: 'bagaż',
 		 	choiceE:["luggage","lucky","lagged","legend"],
 		 	choiceP: ["bagaż","ogrodnik", "jazda", "nuda"],
-			 },
+			 },/*
 			 {
 		 	name: 'hospital',
 		 	translate: 'szpital',
@@ -57,7 +57,7 @@
 		 	translate: 'tygrys',
 		 	choiceE:["tiger","tight","tightly","title"],
 		 	choiceP: ["tygrys","lew", "pies", "kot"]
-			 },/*
+			 },
 			   {
 		 	name: 'sunset',
 		 	translate: 'zachod slonca',
@@ -78,9 +78,11 @@
 		 	choiceP: ["zwiedzanie","spanie", "podróż", "piłka"],
 			 },*/
 		 ];
-		let listenAudio = document.getElementById("listen_audio");
-		let answerArea = document.getElementById('text_answer_area');
-		let showMassage = document.getElementById('show_massage');
+		const list = document.getElementById('answer_list') ;
+		const nextBtn = document.getElementById('next_btn');
+		const listenAudio = document.getElementById("listen_audio");
+		const answerArea = document.getElementById('text_answer_area');
+		const showMassage = document.getElementById('show_massage');
 		let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
 		let i = 0; //zmienna do przebiegu gry
 		let poprawki = [];
@@ -114,7 +116,7 @@
 		answerArea.addEventListener("keyup", function(event) {
 			event.preventDefault();
 			if (event.keyCode === 13) {
-			 	document.getElementById('next_btn').click();
+			 	nextBtn.click();
 			 }
 		});
 
@@ -130,9 +132,9 @@
 			let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
 				 	
 			for(let in choiceAnswerTable ){
-				 list = document.getElementById('answer_list') ;
+				
 				 listitem = document.createElement('li');
-				 listitem.innerHTML = choiceAnswerTable [let];
+				 listitem.innerHTML = "<span>" + choiceAnswerTable [let] + "</span>";
 				 list.appendChild(listitem);
 
 				 listitem.onclick = function(){
@@ -149,7 +151,7 @@
 						 	showMassage.innerHTML = "";
 						 	 gratulation(); 
 						 	 avaregeTest1 = percent; 
-						 	 document.getElementById('next_btn').onclick = function(){
+						 	 nextBtn.onclick = function(){
 						 		document.getElementById('answer_list').innerHTML = ""; 
 						 		selectPolishTrans(words);
 						 		k=0; correct_answers=0;
@@ -171,7 +173,7 @@
 				 }; // listitem onclick
 			}; //koniec wyswietlania odp for petla 
 
-			document.getElementById('next_btn').onclick = function(){
+			nextBtn.onclick = function(){
 				list.innerHTML = "";
 				 showMassage.innerHTML = "";
 				 z=a.length;
@@ -194,9 +196,9 @@
 			let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
 
 			for(let in choiceAnswerTable ){
-				list = document.getElementById('answer_list') ;
+				
 				listitem = document.createElement('li');
-				listitem.innerHTML = choiceAnswerTable [let];
+				listitem.innerHTML = "<span>" + choiceAnswerTable [let] + "</span>";
 				list.appendChild(listitem);
 
 				listitem.onclick = function(){
@@ -212,7 +214,7 @@
 							showMassage.innerHTML = "";
 							gratulation();
 							avaregeTest2 = percent; 
-							document.getElementById('next_btn').onclick = function(){
+							nextBtn.onclick = function(){
 								document.getElementById('answer_list').innerHTML = ""; 
 								selecttrans(words);
 								k=0;
@@ -233,7 +235,7 @@
 					stopClick();
 				};
 			};
-			document.getElementById('next_btn').onclick = function(){
+			nextBtn.onclick = function(){
 				list.innerHTML = "";
 				showMassage.innerHTML = "";
 				z=a.length;
@@ -255,9 +257,9 @@
 			let correctAnswerIndex2 = (choiceAnswerTable.indexOf(correctAnswerIndex));
 
 			for(let in choiceAnswerTable ){
-				list = document.getElementById('answer_list') ;
+				
 				listitem = document.createElement('li');
-				listitem.innerHTML = choiceAnswerTable [let];
+				listitem.innerHTML = "<span>" + choiceAnswerTable [let] + "</span>"
 				list.appendChild(listitem);
 
 				listitem.onclick = function(){
@@ -272,19 +274,19 @@
 						listenAudio.src = sounds;
 						listenAudio.play();
 						document.getElementById('listen_btn').onclick = function(){
-							listenAudio.play();
+						listenAudio.play();
 						};
 						a.splice(i,1);
 						if(a.length ==0){
 							showMassage.innerHTML = ""; 
 							gratulation(); 
-							document.getElementById('next_btn').onclick = function(){
+							nextBtn.onclick = function(){
 								document.getElementById('answer_list').innerHTML = "";
 								avaregeTest3 = percent;
 								dictation(words);
 								k=0; 
 								correct_answers=0; 
-								document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ Math.floor(correct_answers/k*100) + "%</p>"; 
+								document.getElementById('correct_answers').innerHTML ="<p>Poprawnie %</p>"; 
 								return false}
 							};
 						}
@@ -300,7 +302,7 @@
 					stopClick();	
 				};						
 			};// forlet			 	
-			document.getElementById('next_btn').onclick = function(){
+			nextBtn.onclick = function(){
 				list.innerHTML = "";
 				showMassage.innerHTML = "";
 				z=a.length;
@@ -310,6 +312,7 @@
 		};//zselecttrans
 
 		function dictation(a){
+			document.getElementById('correct_answers').innerHTML =" ";
 			document.getElementById('listen_btn').style.visibility = "initial";
 			answerArea.style.visibility = "initial";
 			document.querySelector('input').focus();	
@@ -319,7 +322,7 @@
 			let sounds = 'sounds/' + a[i].name +'.ogg';
 			listenAudio.src = sounds;
 			listenAudio.play();
-			document.getElementById('next_btn').onclick = function(){
+			nextBtn.onclick = function(){
 				let getvalue = answerArea.value;
 			
 				if(getvalue == a[i].name){
@@ -335,7 +338,7 @@
 						showMassage.innerHTML = ""; 
 						gratulation();  
 						avaregeTest4 = percent; 
-						return document.getElementById('next_btn').onclick = function(){
+						return nextBtn.onclick = function(){
 							document.getElementById('show_massage').innerHTML = "";
 							document.getElementById('answer_list').innerHTML = "";
 							document.getElementById('correct_answers').innerHTML ="<p>Poprawnie %</p>"; 
@@ -354,7 +357,7 @@
 					let percent = Math.floor(correct_answers/k*100) ;
 					document.getElementById('correct_answers').innerHTML ="<p>Poprawnie "+ percent  + "%</p>";
 				};
-				document.getElementById('next_btn').onclick = function(){
+				nextBtn.onclick = function(){
 					z=a.length;
 					if(i==z){i=0;};
 					dictation(a);
@@ -369,7 +372,7 @@
 			a = JSON.parse(JSON.stringify(a));
 			showMassage.innerHTML = a[i].translate;
 
-			document.getElementById('next_btn').onclick = function(){
+			nextBtn.onclick = function(){
 				let getvalue = answerArea.value;
 				if(getvalue == a[i].name){
 					showMassage.innerHTML = "<p class='correct_answer'>Bardzo dobrze <br></p>"+ a[i].name;
@@ -399,7 +402,7 @@
 				if(a.length ==0){
 					showMassage.innerHTML = ""; gratulation(); 
 					let averageAll = Math.floor(avaregeTest1 + avaregeTest2 + avaregeTest3 + avaregeTest4) / 4;
-					return document.getElementById('next_btn').onclick = function(){
+					return nextBtn.onclick = function(){
 					 	if(averageAll>80){
 					 		document.getElementById('correct_answers').innerHTML ="<img src='images/kciukup.png'>";
 					 		document.getElementById('answer_list').innerHTML = "<h1 class='gray_effect'><span>G</span><span>r</span><span>a</span><span>t</span><span>u</span><span>l</span><span>a</span><span>c</span><span>j</span><span>e</span></h1> <br> <p class='good_result'>Twój wynik: "+ averageAll + "%</p>";
@@ -416,7 +419,7 @@
 				};//if a.length
 				z=a.length;
 				if(i==z){i=0;};
-				document.getElementById('next_btn').onclick = function(){
+				nextBtn.onclick = function(){
 					finalTest(a);
 					answerArea.style.visibility = "initial";
 				}
