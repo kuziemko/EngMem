@@ -89,6 +89,7 @@ body{
 	position: absolute;
 	top: 10px;
 	left: 10px;
+	color:black;
 
 }
 #main_area{
@@ -98,7 +99,7 @@ body{
 }
 #main_area p {
 	font-size: 2.0em;
-	color: blue;
+	color:   #ff33cc;
 }
 #main_area input{
 	min-width: 400px;
@@ -112,8 +113,8 @@ text-align: center;
 #main_area ul li{
 	padding: 5px;
 }
-#main_area ul li:hover{
-	color: #a218cd;
+#main_area ul li span:hover {
+	color: blue;
 }
 #listen_btn{
 	position: absolute;
@@ -139,24 +140,20 @@ text-align: center;
 	border: none;
 	border-radius: 5px;
 	padding: 10px;
-	border:1px solid black;
+	border: 3px solid black;
+	
 }
 #next_btn img{
 	width: 30px;
-
 }
-#next_btn:hover {
 
-}
 #answer_list li{
 	max-width: 400px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
-#answer_list li:hover{
-	background-color: 
-}
+
 #correct_answers{
 	position: absolute;
 	left: 200px;
