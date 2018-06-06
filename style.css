@@ -295,10 +295,7 @@ font-size: 1.4em;
 	margin-right: auto;
 }
 @media only screen and (max-width: 500px){
-		#main_area p {
-	font-size: 1.8em;
-	color:   red;
-}
+
 #main_img{
 	height: 140px;
 	width: 240px;	
@@ -325,4 +322,8 @@ display: none;
 #main_area input{
 	min-width: 200px;
 	margin-bottom: 0px;
+}
+#main_area{
+	padding-top: 5px;
+}
 }
