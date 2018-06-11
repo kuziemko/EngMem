@@ -16,10 +16,10 @@
 </head>
 <body>
 	<header id="header">
-		<select id="select_group">sekcje
+		<!--<select id="select_group">sekcje
 			<option>turystyka</option>
 			<option>rodzina</option>
-		</select>
+		</select>-->
 		<img  id="main_img" src="images/eng.jpg">
 	</header>
 	<section id="main_area">
@@ -86,10 +86,7 @@
 		let correct_answers = 0; // wyswietla poprawne odpowiedzi w sesji;
 		let i = 0; //zmienna do przebiegu gry
 		let k = 0; //zmienna do przebiegu gry
-		let avaregeTest1 = 0;
-		let avaregeTest2 = 0;
-		let avaregeTest3 = 0;
-		let avaregeTest4 = 0;
+		let avaregeTest = [];
 		let imgIndex = 1;
 		let percent = 0;
 		const green = '#00ff00';
@@ -163,7 +160,7 @@
 						 if(a.length ==0){
 						 	showMassage.innerHTML = "";
 						 	 gratulation(); 
-						 	 avaregeTest1 = percent; 
+						 	 avaregeTest.push(percent); 
 						 	 nextBtn.onclick = function(){
 						 		document.getElementById('answer_list').innerHTML = ""; 
 						 		selectPolishTrans(words);
@@ -220,7 +217,7 @@
 						if(a.length ==0){
 							showMassage.innerHTML = "";
 							gratulation();
-							avaregeTest2 = percent; 
+							avaregeTest.push(percent);  
 							nextBtn.onclick = function(){
 								document.getElementById('answer_list').innerHTML = ""; 
 								selecttrans(words);
@@ -271,9 +268,6 @@
 					if (clickedWord==a[i].name) {
 						this.style.backgroundColor = green;
 						correctAnswerSettings();
-					
-						
-						
 						let sounds = 'sounds/' + a[i].name +'.ogg';
 						listenAudio.src = sounds;
 						listenAudio.play();
@@ -286,7 +280,7 @@
 							gratulation(); 
 							nextBtn.onclick = function(){
 								document.getElementById('answer_list').innerHTML = "";
-								avaregeTest3 = percent;
+								avaregeTest.push(percent); 
 								dictation(words);
 								k=0; 
 								correct_answers=0; 
@@ -338,7 +332,7 @@
 					if(a.length ==0){
 						showMassage.innerHTML = ""; 
 						gratulation();  
-						avaregeTest4 = percent; 
+						avaregeTest.push(percent);  
 						return nextBtn.onclick = function(){
 							document.getElementById('show_massage').innerHTML = "";
 							document.getElementById('answer_list').innerHTML = "";
@@ -403,7 +397,9 @@
 				if(a.length ==0){
 					showMassage.innerHTML = "";
 					gratulation(); 
-					let averageAll = Math.floor(avaregeTest1 + avaregeTest2 + avaregeTest3 + avaregeTest4) / 4;
+					avaregeTest.push(percent); 
+					let aveall = avaregeTest.reduce(function(a,b){return a+b;})
+					let averageAll = Math.floor(aveall) / 5;
 					return nextBtn.onclick = function(){
 					 	if(averageAll>80){
 					 		document.getElementById('correct_answers').innerHTML ="<img src='images/kciukup.png'>";
